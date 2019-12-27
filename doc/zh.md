@@ -29,7 +29,7 @@ cd PttCrawler
 
 ```bash
 sudo apt-get install python3 python3-pip
-```
+(windows 使用者請跳過這個步驟)
 
 ![img1](img/3.PNG)
 
@@ -38,7 +38,10 @@ sudo apt-get install python3 python3-pip
 ```bash
 sudo apt-get install libssl-dev
 sudo pip3 install -r requirements.txt 
-```
+(windows 使用者的指令為：
+pip install libssl-dev
+pip3 install -r requirements.txt
+)
 
 ![img1](img/4.PNG)
 ![img1](img/5.PNG)
@@ -47,7 +50,9 @@ sudo pip3 install -r requirements.txt
 
 ```bash
 cp config_example.ini config.ini
-```
+(windows 使用者的指令為：
+copy config_example.ini config.ini
+)
 
 ![img1](img/6.PNG)
 
@@ -57,9 +62,7 @@ cp config_example.ini config.ini
 alembic upgrade head
 ```
 
-## 設定
-
-```ini
+## 設定 config.ini
 [Database]
 # Database Url: [Type]://[Name]
 # 目前只支援SQLite
@@ -75,6 +78,7 @@ WebdriverFolder = webdriver
 UserId = guest
 UserPwd = guest
 # Choices = {database, json, both}
+# 若選擇 json，則不被 export.py 解析
 Output = both
 
 [PttArticle]
@@ -85,6 +89,7 @@ NextPageDelaytime = 10.0
 # request timeout
 Timeout = 10
 # Choices = {database, json, both}
+# 若選擇 json，則不被 export.py 解析
 Output = both
 # 文章歷史紀錄頂多保留30個版本
 VersionRotate = 30
@@ -127,7 +132,7 @@ python init_db.py
     * --board-name
         - 看板名稱
     * --start-date, --index, --database
-        - --start-date: 從最新文章往前爬取到特定時間的文章
+        - --start-date: 從最新文章往前爬取到特定時間的文章（日期格式 YYYY-MM-DD）
         - --index: 爬取從START_INDEX到END_INDEX之間的文章
         - --database: 爬取DB中有紀錄索引的文章
     * --add, --upgrade
@@ -159,7 +164,8 @@ python init_db.py
 
 ### Export
 
-匯出成ods, csv或json
+將 database 資料匯出成ods, csv或json
+若於 config.ini 中設定 output=json，則不會匯出該部分資料
 
 ```bash
 python export.py --format {ods, csv json} --output-folder OUTPUT_FOLDER [--output-prefix OUTPUT_PREFIX]
