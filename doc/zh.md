@@ -62,7 +62,9 @@ copy config_example.ini config.ini
 alembic upgrade head
 ```
 
-## 設定 config.ini
+## 設定 
+
+```config.ini
 [Database]
 # Database Url: [Type]://[Name]
 # 目前只支援SQLite
